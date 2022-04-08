@@ -16,7 +16,6 @@ const connectButtonHandler = async (event) => {
   event.preventDefault();
   if (!connected) {
     const username = usernameInput.value;
-    const roomname = roomNameInput.value;
     if (!username) {
       alert('Enter your name before connecting');
       return;
@@ -24,7 +23,7 @@ const connectButtonHandler = async (event) => {
     button.disabled = true;
     button.innerHTML = 'Connecting...';
     try {
-      await connect(roomname);
+      await connect(username);
       button.innerHTML = 'Leave call';
       button.disabled = false;
     }
@@ -41,11 +40,11 @@ const connectButtonHandler = async (event) => {
   }
 };
 
-const connect = async (roomname) => {
+const connect = async (username) => {
   const response = await fetch('/get_token', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({'roomname': roomname}),
+    body: JSON.stringify({'username':username}),
   });
   const data = await response.json();
   room = await Twilio.Video.connect(data.token);
