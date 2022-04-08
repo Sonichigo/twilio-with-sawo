@@ -4,7 +4,7 @@ exports.handler = async function(context, event, callback) {
   const accessToken = new twilio.jwt.AccessToken(
     context.ACCOUNT_SID, context.API_KEY_SID, context.API_KEY_SECRET
   );
-  accessToken.identity = event.roomname;
+  accessToken.identity = event.username;
   console.log(event);
   const videoGrant = new twilio.jwt.AccessToken.VideoGrant({
     room: 'roomname',
